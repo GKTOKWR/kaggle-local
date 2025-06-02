@@ -1,0 +1,10 @@
+services:
+  python:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    shm_size: '2gb'
+    ports:
+      - "8888:8888"
+    volumes:
+      - "./:/home/work"
