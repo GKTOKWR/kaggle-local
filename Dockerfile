@@ -1,12 +1,14 @@
-FROM condaforge/miniforge3:latest
+FROM python:3.12-slim
 
 RUN apt update && \
-    apt install -y build-essential
+    apt install -y build-essential curl
 
+# Install uv using pip
+RUN pip install uv
 
 COPY requirements.txt /tmp
-RUN pip install -r /tmp/requirements.txt
-RUN pip install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cpu
+RUN uv pip install --system -r /tmp/requirements.txt
+RUN uv pip install --system torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cpu
 
 RUN mkdir /home/work
 
